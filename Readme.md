@@ -23,4 +23,14 @@ Summarization is performed as a hierarchical chunking.
 
 App front end is basic Gradio - no biggie. Feel free to modify anything to your needs.
 
-Next up: PPT summarization
+Next up: More extensive summarization of PDF to include tables, images etc.
+
+
+# readPDF
+Sample program to read images from PDF and convert them to base64encoded
+uses saample abc.pdf
+
+# GPT4v
+Sample program to read an image, convert it to base64encoded, send it to OpenAI GPT4V for summarization of image
+uses sample CT.png
+
