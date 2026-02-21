@@ -4,7 +4,7 @@ import os
 from pypdf import PdfReader
 from chunker import auto_chunker, get_token_size
 import base64
-import cStringIO
+from io import BytesIO
 
 #selecting because of context window of 16k
 MODEL = "gpt-4-vision-preview"
@@ -26,9 +26,9 @@ def process_pdf(uploaded_files):
                 if (len(extracted) > 100): #I am assuming anything less than 100 words on page doesnt need summarization
                     extracted_pages.append(extracted)
             for images in reader.images:
-                buffer = cStringIO.cStringIO()
+                buffer = BytesIO()
                 images.save(buffer, format="JPEG")
-                extracted_images.append(base64.b64decode(buffer.getvalue())) #images from each page stored as string
+                extracted_images.append(base64.b64encode(buffer.getvalue()).decode()) #images from each page stored as base64 string
                 print("Saving image...")
         except:
             print("Invalid file")
@@ -87,4 +87,3 @@ iface = gr.Interface(
 if __name__ == "__main__":
     iface.launch()
 
-gr.close_all()
